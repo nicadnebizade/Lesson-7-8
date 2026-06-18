@@ -1,0 +1,54 @@
+using System;
+
+class BankCustomer
+{
+    // -----------------------------------------------------------------------------------------
+    // CONST HAQQINDA:
+    // Const dəyişdirilməz deməkdir. C++ dilində olduğu kimi, burada da dəyəri yaradılan an
+    // (yəni kodu yazarkən) mütləq verilməlidir. Const mütləq şəkildə 'Compile-time'da (kod yığılanda)
+    // müəyyən olunmalıdır. Bunun da mənfi tərəfi odur ki, istifadəçidən gələn dinamik məlumatı
+    // (Run-time-da olan məlumatı) bura mənimsədə bilmirik. Amma bütün müştərilər üçün bank adı 
+    // eyni və sabit qalmalı olduğu üçün burada 'const' istifadə etmək tam məntiqlidir.
+    // -----------------------------------------------------------------------------------------
+
+    public const string BankName = "Kapital Bank";
+
+    // -----------------------------------------------------------------------------------------
+    // READONLY HAQQINDA:
+    // Burada bizə köməyə Readonly gəlir. Readonly bəzi cəhətlərdən consta bənzəsə də, ondan daha 
+    // çevikdir. Ən böyük fərqi odur ki, Compile-time-da yox, proqram işə düşəndə (Run-time) işə düşür.
+    // Yəni istifadəçidən gələn fərqli və unikal məlumatları bura mənimsədə bilirik. Readonly dəyişənə
+    // dəyəri ya yaradılan an, ya da mütləq şəkildə KONSTRUKTOR daxilində verə bilərik. Bu mexanizm
+    // C++ dilindəki 'Constructor Initialization List' məntiqi ilə demək olar ki, eynidir. 
+    // Konstruktorun işi bitdisə, dəyər kilidlənir və proqramın başqa heç bir yerində dəyişdirilə bilmir.
+    // Hər müştərinin ID-si və qeydiyyat zamanı fərqli olmalıdır deyə burada readonly istifadə etdik.
+    // -----------------------------------------------------------------------------------------
+    public readonly string customerId;
+    public readonly DateTime registrationDate;
+
+    // Konstruktor - Obyekt yaranan zaman icra olunur və readonly dəyişənləri doldurur
+    public BankCustomer(string id)
+    {
+        customerId = id;
+        registrationDate = DateTime.Now;
+    }
+    public void ShowCustomerDetails()
+    {
+        Console.WriteLine("Bankin adi: " + BankName);
+        Console.WriteLine("Musteri ID: " + customerId);
+        Console.WriteLine("Qeydiyyat Tarixi: " + registrationDate);
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        BankCustomer c = new BankCustomer("Musteri_AZE99");
+        BankCustomer a = new BankCustomer("Musteri_AZE55");
+
+        c.ShowCustomerDetails();
+        Console.WriteLine(" ");
+        a.ShowCustomerDetails();
+    }
+}
